@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="المساعد الشخصي الذكي - موسوعة رقمية تحتوي على أكثر من 300 أداة">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>المساعد الشخصي الذكي</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode" data-lang="ar">
+
+  <!-- شاشة التحميل -->
+  <div id="splashScreen" class="splash">
+    <div class="splash-content">
+      <div class="splash-icon"><img src="robot.png" alt="مساعد ذكي" class="brand-img-large"></div>
+      <h1 class="splash-title">المساعد الشخصي الذكي</h1>
+      <p class="splash-sub">جاري التحميل...</p>
+      <div class="splash-bar"><div class="splash-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- الهيدر -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon"><img src="robot.png" alt="مساعد ذكي" class="brand-img"></span>
+        <div class="brand-text">
+          <span class="brand-name" data-ar="المساعد الشخصي الذكي" data-en="Smart Assistant">المساعد الشخصي الذكي</span>
+          <span class="brand-sub" data-ar="+300 أداة ذكية" data-en="300+ Smart Tools">+300 أداة ذكية</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="langBtn" title="Switch Language" aria-label="تغيير اللغة">
+          <span id="langLabel">EN</span>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="تبديل المظهر" aria-label="تغيير المظهر">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- شريط البحث -->
+    <div class="search-wrapper">
+      <span class="search-icon-label">🔍</span>
+      <input
+        type="search"
+        id="searchInput"
+        class="search-input"
+        placeholder="ابحث عن أي أداة..."
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="بحث عن أداة"
+      >
+      <button class="clear-btn" id="clearBtn" aria-label="مسح البحث" style="display:none">✕</button>
+    </div>
+  </header>
+
+  <!-- شريط التصنيفات -->
+  <nav class="cats-nav" id="catsNav" aria-label="التصنيفات">
+    <div class="cats-inner">
+      <button class="cat-btn active" data-cat="all" data-ar="⭐ الكل" data-en="⭐ All">⭐ الكل</button>
+      <button class="cat-btn" data-cat="calc" data-ar="🧮 الحاسبات" data-en="🧮 Calculators">🧮 الحاسبات</button>
+      <button class="cat-btn" data-cat="health" data-ar="❤️ الصحة" data-en="❤️ Health">❤️ الصحة</button>
+      <button class="cat-btn" data-cat="time" data-ar="⏰ الوقت" data-en="⏰ Time">⏰ الوقت</button>
+      <button class="cat-btn" data-cat="finance" data-ar="💰 المال" data-en="💰 Finance">💰 المال</button>
+      <button class="cat-btn" data-cat="edu" data-ar="📚 التعليم" data-en="📚 Education">📚 التعليم</button>
+      <button class="cat-btn" data-cat="home" data-ar="🏠 المنزل" data-en="🏠 Home">🏠 المنزل</button>
+      <button class="cat-btn" data-cat="writing" data-ar="✍️ الكتابة" data-en="✍️ Writing">✍️ الكتابة</button>
+      <button class="cat-btn" data-cat="digital" data-ar="💻 الرقمية" data-en="💻 Digital">💻 الرقمية</button>
+      <button class="cat-btn" data-cat="fun" data-ar="🎮 الترفيه" data-en="🎮 Fun">🎮 الترفيه</button>
+      <button class="cat-btn" data-cat="daily" data-ar="🌟 يومية" data-en="🌟 Daily">🌟 يومية</button>
+    </div>
+  </nav>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="main-content">
+    <div class="section-header">
+      <h2 class="section-title" id="sectionTitle">جميع الأدوات</h2>
+      <span class="tools-count" id="toolsCount"></span>
+    </div>
+    <div class="tools-grid" id="toolsGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="empty-icon">🔍</div>
+      <p class="empty-msg" data-ar="لا توجد نتائج" data-en="No results found">لا توجد نتائج</p>
+      <p class="empty-sub" data-ar="جرّب كلمة أخرى" data-en="Try a different keyword">جرّب كلمة أخرى</p>
+    </div>
+  </main>
+
+  <!-- الفوتر -->
+  <footer class="app-footer">
+    <a href="https://wa.me/201090844039" target="_blank" rel="noopener" class="support-link" aria-label="دعم فني واتساب">
+      <span>💬</span>
+      <span data-ar="للدعم الفني والاستفسارات" data-en="Support & Inquiries">للدعم الفني والاستفسارات</span>
+    </a>
+    <p class="footer-copy">المساعد الشخصي الذكي &copy; 2025</p>
+  </footer>
+
+  <!-- المودال -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span class="modal-icon-el" id="modalIcon" aria-hidden="true"></span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- زر العودة للأعلى -->
+  <button class="scroll-top" id="scrollTop" aria-label="العودة للأعلى" title="العودة للأعلى">⬆</button>
+
+  <!-- بنر PWA -->
+  <div class="pwa-banner" id="pwaBanner" style="display:none">
+    <span class="pwa-text" data-ar="ثبّت التطبيق للعمل بدون إنترنت" data-en="Install for offline use">ثبّت التطبيق للعمل بدون إنترنت</span>
+    <button id="pwaInstallBtn" class="pwa-btn" data-ar="تثبيت" data-en="Install">تثبيت</button>
+    <button id="pwaDismissBtn" class="pwa-dismiss">✕</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="tools2.js"></script>
+  <script>
+    /* تسجيل Service Worker لدعم العمل بدون إنترنت */
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(r => console.log('✅ SW مسجّل:', r.scope))
+          .catch(e => console.warn('⚠️ SW فشل:', e));
+      });
+    }
+
+    /* PWA - Install Prompt */
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const banner = document.getElementById('pwaBanner');
+      if (banner && !localStorage.getItem('pwa_dismissed')) {
+        banner.style.display = 'flex';
+      }
+    });
+    document.getElementById('pwaInstallBtn')?.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+          document.getElementById('pwaBanner').style.display = 'none';
+        });
+      }
+    });
+    document.getElementById('pwaDismissBtn')?.addEventListener('click', () => {
+      localStorage.setItem('pwa_dismissed', '1');
+      document.getElementById('pwaBanner').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
