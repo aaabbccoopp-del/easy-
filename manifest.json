@@ -1,16 +1,56 @@
 {
   "name": "المساعد الشخصي الذكي",
   "short_name": "مساعد ذكي",
-  "description": "موسوعة رقمية تحتوي على +200 أداة ذكية",
-  "start_url": ".",
+  "description": "موسوعة رقمية أوفلاين تحتوي على +200 أداة ذكية لتسهيل الحياة اليومية",
+  "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#1e293b",
-  "theme_color": "#2563eb",
+  "background_color": "#030712",
+  "theme_color": "#0f172a",
   "lang": "ar",
   "dir": "rtl",
   "orientation": "portrait-primary",
   "categories": ["productivity", "utilities", "lifestyle"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "الأدوات الحسابية",
+      "short_name": "حاسبات",
+      "url": "index.html?category=math",
+      "description": "الوصول السريع للأدوات الحسابية والمحولات",
+      "icons": [{ "src": "robot.png", "sizes": "any", "type": "image/png" }]
+    },
+    {
+      "name": "قائمة المهام",
+      "short_name": "مهامي",
+      "url": "index.html?category=tasks",
+      "description": "إدارة مهامك اليومية بدون إنترنت",
+      "icons": [{ "src": "robot.png", "sizes": "any", "type": "image/png" }]
+    }
+  ],
   "icons": [
-    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    {
+      "src": "robot.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "robot.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "robot.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "robot.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
