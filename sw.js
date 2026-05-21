@@ -5,13 +5,13 @@
 
 const CACHE_NAME = 'smart-assistant-v1';
 
-/* قائمة الملفات التي سيتم تخزينها مؤقتاً */
+/* قائمة الملفات التي سيتم تخزينها مؤقتاً (تم تنظيف المسارات لجيت هاب) */
 const FILES_TO_CACHE = [
-  '.',
   'index.html',
   'style.css',
   'app.js',
   'manifest.json',
+  'robot.png', // تم إضافة الأيقونة هنا لتكشيشها أوفلاين
   'sw.js'
 ];
 
@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
   console.log('[SW] تثبيت وتخزين الملفات...');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[SW] فتح الكاش وتخزين الملفات');
+      console.log('[SW] فتح الكاش وتخزين الملفات بنجاح');
       return cache.addAll(FILES_TO_CACHE);
     }).then(() => {
       /* تفعيل SW الجديد فوراً دون انتظار */
@@ -60,7 +60,13 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   /* تجاهل الطلبات غير GET وطلبات التوصيل HMR */
   if (event.request.method !== 'GET') return;
-  if (event.request.url.includes('/@vite') || event.request.url.includes('/node_modules')) return;
+  
+  // تجاهل أي ملفات تابعة لريبلت أو الـ Dev Mode لضمان عدم حدوث تجميد أثناء التكويد
+  if (
+    event.request.url.includes('/@vite') || 
+    event.request.url.includes('/node_modules') || 
+    event.request.url.includes('replit')
+  ) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -80,7 +86,7 @@ self.addEventListener('fetch', (event) => {
         });
         return networkResponse;
       }).catch(() => {
-        /* إذا فشلت الشبكة، أرجع الصفحة الرئيسية من الكاش */
+        /* إذا فشلت الشبكة والنت مقطوع تماماً، افتح الصفحة الرئيسية */
         if (event.request.mode === 'navigate') {
           return caches.match('index.html');
         }
